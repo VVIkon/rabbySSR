@@ -1,0 +1,33 @@
+{
+  "name": "rabby-ssr",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "^1.8.0",
+    "@nuxt/image": "^1.11.0",
+    "@nuxt/scripts": "^0.11.10",
+    "@nuxt/ui": "^3.3.2",
+    "@pinia/nuxt": "^0.11.2",
+    "@unhead/vue": "^2.0.14",
+    "eslint": "^9.33.0",
+    "jose": "^6.0.12",
+    "mongoose": "^8.17.2",
+    "nuxt": "^4.0.3",
+    "pinia": "^3.0.3",
+    "typescript": "^5.9.2",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "jsonwebtoken": "^9.0.2",
+    "vue-tsc": "^3.0.5"
+  }
+}

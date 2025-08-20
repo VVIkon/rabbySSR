@@ -1,2 +1,2 @@
 # rabbySSR
-Фронт nuxt 3 ssr
+ssr (Nuxt4) для понимания процесса

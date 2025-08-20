@@ -1,0 +1,52 @@
+// .vscode/launch.json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Nuxt 3: Start Dev Server",
+      "type": "node",
+      "request": "launch",
+    //   "port": 9235,
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["nuxi", "dev"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--inspect=9235",
+        "NUXT_DEBUG": "1"
+      },
+      "autoAttachChildProcesses": true,
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    // {
+    //   "name": "Nuxt 3: Attach to Dev Server",
+    //   "type": "node",
+    //   "request": "attach",
+    //   "port": 9235,
+    //   "cwd": "${workspaceFolder}",
+    //   "skipFiles": [
+    //     "<node_internals>/**"
+    //   ]
+    // },
+    {
+      "name": "Nuxt 3: Build & Start (Production)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["nuxi", "build"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "preLaunchTask": "build-nuxt",
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Nuxt 3 (Dev)",
+      "configurations": ["Nuxt 3: Start Dev Server"],
+      "stopAll": true
+    }
+  ]
+}
