@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import { defineEventHandler } from "h3";
 
 export default defineEventHandler((event) => {
-	console.log(`>>> event.path`, event.path);
-	// const publicPaths = ['/', '/login', '/api/auth/login', '/api/users', '/api/public'];
 	const publicPaths = ['/', '/login', '/api/auth/login'];
 	if (publicPaths.includes(event.path || ' ')) return;
 
@@ -24,6 +22,7 @@ export default defineEventHandler((event) => {
 			throw new Error("JWT secret is not configured");
 		}
 		const decoded = jwt.verify(token, secret);
+		console.log(`>>> decoded: `, decoded);
 		event.context.user = decoded;
 	} catch (err) {
 		throw createError({

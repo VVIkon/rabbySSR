@@ -1,5 +1,4 @@
 import { defineEventHandler } from "h3";
-// import { mockUsers } from "../users/mock.users";
 import connect from '~/server/utils/mongoose'
 import PersonData from '~/server/models/PersonData'
 

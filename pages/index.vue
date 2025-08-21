@@ -1,122 +1,64 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useAuthStore } from "~/stores/auth";
-import { useUsersStore } from "~/stores/users";
-import { useRouter } from "vue-router";
-
-const authStore = useAuthStore();
-const usersStore = useUsersStore();
-const router = useRouter();
-
-const isModalOpen = ref(false);
-
-onMounted(async () => {
-	if (!authStore.isAuthenticated) {
-		await router.push("/login");
-	} else {
-		await usersStore.fetchUsers();
-	}
-});
-
-const handleLogout = () => {
-	authStore.logout();
-	router.push("/login");
-};
-
-const openUserModal = async (userId: string) => {
-	await usersStore.fetchUser(userId);
-	isModalOpen.value = true;
-};
-
-const closeModal = () => {
-	isModalOpen.value = false;
-};
+useHead({
+  title: 'Главная страница'
+})
 </script>
 
 <template>
-	<div>
-		<h1>Пользователи</h1>
-		<button @click="handleLogout">Выйти</button>
+  <div class="home-page">
+    <h1>Главная страница</h1>
+    <p>Добро пожаловать в приложение управления пользователями</p>
 
-		<div v-if="usersStore.isLoading">Загрузка...</div>
-		<table v-else>
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Имя</th>
-					<th>Фамилия</th>
-					<th>Действия</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="user in usersStore.users" :key="user.id">
-					<td>{{ user.id }}</td>
-					<td>{{ user.firstName }}</td>
-					<td>{{ user.lastName }}</td>
-					<td>
-						<button @click="openUserModal(user.id)">
-							Просмотр
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+    <div class="features">
+      <h2>Возможности:</h2>
+      <ul>
+        <li>Просмотр списка пользователей</li>
+        <li>Детальная информация о пользователе</li>
+        <li>Модальные окна для просмотра данных</li>
+      </ul>
+    </div>
 
-		<!-- Модальное окно -->
-		<div v-if="isModalOpen" class="modal">
-			<div class="modal-content">
-				<span class="close" @click="closeModal">&times;</span>
-				<UserCard
-				 	v-if="usersStore.currentUser"
-					:user="usersStore.currentUser"
-				/>
-			</div>
-		</div>
-	</div>
+    <div class="actions">
+      <NuxtLink to="/users" class="btn btn-primary">
+        Перейти к пользователям
+      </NuxtLink>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-th,
-td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
-}
-th {
-	background-color: #f2f2f2;
-}
-tr:nth-child(even) {
-	background-color: #f9f9f9;
+.home-page {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.features {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
 }
-.modal-content {
-	background-color: white;
-	padding: 20px;
-	border-radius: 5px;
-	width: 80%;
-	max-width: 600px;
-	max-height: 80vh;
-	overflow-y: auto;
+
+.features ul {
+  margin-left: 1.5rem;
 }
-.close {
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	cursor: pointer;
+
+.actions {
+  margin-top: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #2980b9;
 }
 </style>

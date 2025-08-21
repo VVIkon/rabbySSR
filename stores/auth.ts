@@ -17,13 +17,14 @@ export const useAuthStore = defineStore("auth", () => {
 
 	const login = async (credentials: { login: string, password: string }) => {
 		try {
-			const response = await $fetch("/api/auth/login", {
+			const response = await $fetch<ILoginResponse>("/api/auth/login", {
 				method: "POST",
 				body: credentials,
 			});
 
 			// Сохраняем токен
 			token.value = response.token;
+			user.value = response.user
 			localStorage.setItem("auth_token", response.token);
 
 			return response;
@@ -38,6 +39,5 @@ export const useAuthStore = defineStore("auth", () => {
 		localStorage.removeItem("auth_token");
 	};
 
-	// return { user, token, isAuthenticated };
 	return { user, token, isAuthenticated, login, logout };
 });
